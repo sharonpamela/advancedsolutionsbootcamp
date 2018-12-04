@@ -68,10 +68,8 @@ Agenda
 ++++++
 
 - Introductions
-- Nutanix Technology Overview
-- Nutanix Configuration Labs
-- Deploying and Managing Workloads
-- Monitoring and Managing the Environment
+- Nutanix Calm
+- Nutanix Flow
 
 Introductions
 +++++++++++++
