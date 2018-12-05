@@ -2,6 +2,15 @@
 
 .. toctree::
   :maxdepth: 2
+  :caption: Prism Central
+  :name: _prism_central
+  :hidden:
+
+  monitoring_and_managing_env/monitoring_and_managing_env
+  lab_monitoring_env/lab_monitoring_env
+
+.. toctree::
+  :maxdepth: 2
   :caption: Optional Calm Lab
   :name: _optional_calm_lab
   :hidden:
