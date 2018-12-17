@@ -42,7 +42,6 @@
   :name: _optional_labs
   :hidden:
 
-  authentication/authentication
   calm_enable/calm_enable
 
 .. toctree::
