@@ -11,100 +11,165 @@ Overview
 
   Estimated time to complete: 15-30 MINUTES
 
-In this exercise you will create an application category named **app-abc**. You will assign the **AppType: app-abc** category to our application VM, which in this example is the **flow-abc-5** VM. Finally you will create a security policy to restrict the application VM from receiving ICMP ping requests from VMs outside of the **programs-abc: sales-abc** category.
+In this exercise you will create several application categories to be assigned to the different VMs within our application. Then you will create a security policy to restrict communication between the application VMs.
 
-Secure Applications with Microsegmentation
+Secure Applications with Flow
 ++++++++++++++++++++++++++++++++++++++++++
 
 Create and Assign Categories
 ............................
 
-Update **AppType** with New Category Value **app-abc**
-------------------------------------------------------
+Update **AppType** with a new category value **TaskMan-abc**.
+----------------------------------------------------------------
 
-Log on to the Prism Central environment and navigate to **Explore > Categories**.
+Log on to the Prism Central environment and navigate to the <icon>hamburger menu. Once there click on **Virtual Infrastructure > Categories**.
 
 Click the check box beside **AppType**. Click **Actions > Update**.
 
 Scroll down and click the plus sign beside the last entry.
 
-Enter **app-abc**, replacing abc with your initials and click **Save**.
+Enter **TaskMan-abc**, replacing abc with your initials and click **Save**.
+
+Update **AppTier** with 3 New Category Values **TMWeb-abc, TMDB-abc, and TMLB-abc**
+------------------------------------------------------------------------------------
+
+Click the check box beside **AppTier**. Click **Actions > Update**.
+
+Scroll down and click the plus sign beside the last entry.
+
+Enter **TMWeb-abc**, replacing abc with your initials and click **Save**.
+
+Repeat the above two steps for TMDB-abc, and TMLB-abc.
 
 
-Assign VM **flow-abc-5** to the category **AppType: app-abc**.
+Assign the categories just created to the Calm Blueprint.
 --------------------------------------------------------------
 
-Within the **Explore > VMs** view in Prism Central, click the check box beside the **flow-abc-5** VM.
+Within the <icon>hamburger menu in Prism Central, navigate to **Services > Calm**.
 
-Click **Actions > Manage Categories**.
+Click on the Blueprint and select the **abc_TaskManager** blueprint you imported and edited earlier.
 
-In the Set Categories text box, type **AppType** and select **AppType: app-abc** from autocomplete then click **Save**.
+Click on WebServer_AHV > Click the **VM** tab from the right hand-side menu.
 
-.. figure:: images/set_app_category.png
+Scroll down until you see the **CATEGORIES** section > Click **Key:Value** > Select **AppTier: TMWeb-abc** and **AppType: TaskMan-abc**.
+
+Repeat the same steps with each of the services in the blueprint:
+HAProxy -> AppTier: TMLB-abc and AppType: TaskMan-abc
+MySQLAHV -> AppTier: TMDB-abc and AppType: TaskMan-abc
+WindowsClient -> Environment: Dev
+
+Launch the application blueprint to initiate the creation of the VMs associated with the application. Move on to the next steps while this application finishes deploying.
 
 
-Assign VM **flow-abc-1** the default category **Environment: Dev**
-------------------------------------------------------------------
+Secure the Task Manager Application
+...................................
 
-Within the **Explore > VMs** view in Prism Central, click the check box beside the **flow-abc-1** VM.
-
-Click **Actions > Manage Categories**.
-
-In the Set Categories text box, type **Dev** and select **Environment: Dev** from autocomplete then click **Save**.
-
-Secure the Application VM
-.........................
-
-Create a new security policy to protect the **app-abc** application.
+Create a new security policy to protect the Task Manager application.
 --------------------------------------------------------------------
 
-Navigate to **Explore > Security Policies**.
+Navigate to the <icon>hamburger menu **Virtual Infrastructure > Policies > Security Policies**.
 
 Click **Create Security Policy > Secure an Application**.
 
 Fill out the following fields and click **Next**:
 
-- **Name** - Protect-app-abc, replacing abc with your initials.
-- **Purpose** - Protect app-abc from ICMP outside of sales VMs.
-- **Secure this app** - AppType: app-abc.
+- **Name** - App-TaskMan-abc, replacing abc with your initials.
+- **Purpose** - Protect the Task Manager application by restricting unnecessary access.
+- **Secure this app** - AppType: TaskMan-abc.
 Do NOT select the check box for the option **Filter the app type by category**.
 
+Click **Next**
+
 .. figure:: images/create_app_vm_sec_pol.png
+
+Click on **Ok, Got it!** if prompted with the tutorial.
+
+Add Tiers to Security Policy
+-----------------------------------------
+
+Click on **Set rules on App Tiers, instead**
+
+Click on **+ Add Tier**
+
+Select **AppTier: TMLB-abc** from the drop down.
+
+Repeat for **AppTier: TMWeb-abc** and **AppTier: TMDB-abc**
+
+
+Add New Inbound Source Production: Environment
+----------------------------------------------
 
 In the Inbound rules section, allow incoming traffic with the following steps:
 
 - Leave **Whitelist Only** selected.
 - Select **+ Add Source**.
 - Leave **Add source by: Category** selected.
-- Type **sales** and select **programs-abc:sales-abc**. Click Add.
+- Type **production** and select **Environment: Production**. Click Add.
 
-Click + which appears on the left side of **AppType: app-abc** after completing the steps above.
+Click + which appears on the left side of **AppTier: TMLB-abc** after completing the steps above.
 
 This opens the Create Inbound Rule window.
 
-In the Protocol column, select **ICMP** to allow inbound ping requests for this app and leave all other fields blank. Click **Save**.
+In the Protocol column, select **TCP** and type port 80 to allow web traffic into the load balancer. Click **Save**.
 
-On the right side, **Outbound** should be set to **Allow All**. You should see **All Destinations**.
 
-.. figure:: images/create_inbound_rule.png
+Add New Inbound Source Calm
+----------------------------------------------
+- Select **+ Add Source**.
+- Select **Add source by: Subnet/IP** using the drop down.
+- Type enter the IP for Prism central followed by /32. Example: 10.20.X.39/32. Click Add.
 
-Click **Next** then click **Save and Monitor**.
+Click + which appears on the left side of **AppTier: TMLB-abc** after completing the steps above.
 
-Confirm that VMs belonging to the **programs-abc:sales-abc** category can ping the application VM which belongs to the **AppType: app-abc** category.
+This opens the Create Inbound Rule window.
 
-Navigate to **Explore > VMs** and open the console window for the following three VMs:
+In the Protocol column, select **TCP** and type port 22 to allow Calm access. Click **Save**.
 
- - The designated AppType: app-abc VM, flow-abc-5.
- - The Sales VM (a VM in the programs-abc:sales-abc category, flow-abc-4).
- - The Dev VM (a VM in Environment: Dev, flow-abc-1).
+With the Subnet/IP inbound connection selected, repeat this step for all remaining tiers.
 
-Send a ping from the Sales VM (4) to the AppType: app-abc VM (5).
 
-This ping request should succeed.
+Add New Outbound Source
+-----------------------------------------
+Change the outbound source to **Whitelist Only**
+- Select **+ Add Destination**.
+- Select **Add destination by: Subnet/IP** using the drop down.
+- Type enter the IP for DNS followed by /32. Example: 10.20.X.40/32. Click Add.
 
-Send a ping from the Dev VM (1) to the AppType: app-abc VM (5).
+Click + which appears on the right side of **AppTier: TMDB-abc** after completing the steps above.
 
-This ping also succeeds, even though Environment: Dev is not part of the allowed policy. Why? What is the policy Status?
+This opens the Create Outbound Rule window.
+
+In the Protocol column, select **UDP** and type port 53. Click **Save**.
+<image>
+
+Set Rules within Application
+-----------------------------------------
+
+Click **Set Rules within App**
+
+Select AppTier: TMLB-abc and click on "No" under the question to disallow communication between VMs within this tier.
+
+With the AppTier: TMLB-abc selected, click on the + sign net to the AppTier: TMWeb-abc.
+
+This opens the Create Tier to Tier Rule window.
+
+In the Protocol column, select **TCP** and type port 80. Click **Save**.
+<image>
+
+
+Select AppTier: TMWeb-abc and click on "No" under the question to disallow communication between VMs within this tier.
+
+With the AppTier: TMWeb-abc selected, click on the + sign net to the AppTier: TMDB-abc.
+
+This opens the Create Tier to Tier Rule window.
+
+In the Protocol column, select **TCP** and type port 3306. Click **Save**.
+<image>
+
+Click **Next**.
+
+Click **Save and Monitor**.
+
 
 Takeaways
 +++++++++
