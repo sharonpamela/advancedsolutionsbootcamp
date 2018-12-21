@@ -13,7 +13,7 @@ Overview
 
 In this exercise you will enable Nutanix Flow, formally known as Microsegmentation, and create the VMs to be used throughout the remaining Flow exercises, **if you have not cloned the VMs already as part of the Lab - Deploying Workloads exercise**.
 
-Enabling Microsegmentation
+Enabling Flow
 ++++++++++++++++++++++++++
 
 Open https://<Prism-Central-IP>:9440/ in the Chrome browser and log in.
@@ -24,74 +24,77 @@ Open https://<Prism-Central-IP>:9440/ in the Chrome browser and log in.
 
 From the navigation bar, click the question mark at the top right corner and expand the **New in Prism Central** section of the menu.
 
-Click **Microsegmentation**.
+Click **Flow**.
 
-Select the **Enable Microsegmentation** check box within the **Enable Microsegmentation** dialog box.
+Select the **Enable Flow** check box within the **Enable Flow** dialog box.
 
 .. figure:: images/enable_flow.png
 
 .. note::
 
-  Flow can only be enabled once per Prism Central instance. If **Microsegmentation** displays a green check mark next to it, that means Microsegmentation has already been enabled for the Prism Central instance being used.
+  Flow can only be enabled once per Prism Central instance. If **Flow** displays a green check mark next to it, that means Flow has already been enabled for the Prism Central instance being used.
 
 Click **Enable**
 
 .. figure:: images/enable.png
 
-Create Five VMs
-+++++++++++++++
+Import Blueprint within Calm
+++++++++++++++++++++++++++++
 
 .. note::
 
-  Please use the VM you created in the "Deploy VM Lab", and make 4 clones. Otherwise follow the instructions to create a VM and clone it.
+In this section we will import a Calm Blueprint into Prism Central that will setup the VMs needed for this lab upon Launching.
 
-Now you will create the **five** virtual machines you will use to test the capabilities of Nutanix Flow. Create these virtual machines from the base VM in Prism Central called CentOS.
+To import a Blueprint within Calm, ensure it is enabled (Please see the Enable Calm optional lab if this isn't the case).
 
-In **Prism Central > Explore > VMs**, click **Create VM**.
+Download the blueprint for this lab at the following link:
+<BP link>
 
-Fill out the following fields and click **Save**:
+From the Dashboard within Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
+.. figure:: images/access_calm.png
 
-- **Name** - flow-<your_initials>-1
-- **Description** - Flow testing VM
-- **vCPU(s)** - 2
-- **Number of Cores per vCPU** - 1
-- **Memory** - 4 GiB
-- Select **+ Add New Disk**
+Click on the blueprint icon from the menu on the left (hovering over all of the icons shows their labels).
 
-  - **Operation** - Clone from Image Service
-  - **Image** - CentOS
-  - Select **Add**
-- Remove **CD-ROM** Disk
-- Select **Add New NIC**
+Click **Upload Blueprint** and navigate to the blueprint provided for this course at:
+.. figure:: images/blueprint.png
 
-  - **VLAN Name** - Primary
-  - **IP Address** - *10.21.XX.42*
-  - Select **Add**
+Name the blueprint with your initials, **abc_TaskManager** and choose the **Default** project.
 
-Clone the other four VMs:
--------------------------
+Once the blueprint finishes uploading, it will automatically open.
 
-Take that VM and clone it four times to have a total of five VMs named as follows:
+Let's configure the non-Flow related changes of this blueprint before continuing.
 
-flow-<your_initials>-1
-flow-<your_initials>-2
-flow-<your_initials>-3
-flow-<your_initials>-4
-flow-<your_initials>-5
+Update the credentials:
+  Edit the credentials for Linux machines:
+  Click on **Credentials** from the top menu.
+  Select **CENTOS**.
+  Change the **Username** to **root**
+  Change the **Secret Type** to **Password**.
+  Type **nutanix/4u** in the **Password** field.
+  .. figure:: images/credentials.png
 
-Select the **flow-<your_initials>-1** VM and click **Actions > Clone**.
+  Edit the credentials for Windows machines:
+  Click on **Credentials** from the top menu (if not there already).
+  Select **WINDOWS**.
+  Change the **Secret Type** to **Password**.
+  Type **nutanix/4u** in the **Password** field.
+  .. figure:: Mysql_password.png
 
-- **Number of Clones** - 4
-- **Prefix Name** - flow-<your_initials>-
-- **Starting Index Number** - 2
+Click **Save** from the top right menu, then click the **Back** green button.
 
-Select the five newly created Flow VMs and click **Actions > Power on**.
+Update the Mysql_password application profile variable:
+  On the right hand side, click on the textbox next to Mysql_password and type **nutanix/4u** in the **Password** field.
+  Click **Save** from the top right menu.
 
-.. figure:: images/flow_vms_2.png
+Add the Primary network to to NIC in each of the VMs.
+
+Edit the VM Name field in each of the VMs to add your initials. Go under VM Configuration and place your initials in front of the name field similar to the example shown below:
+yourInitials-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
 
 Takeaways
 +++++++++
 
-- Microsegmentation is a decentralized security framework included from within Prism Central.
-- It offers additional protection against malicious threats that originate from within the data center and spread laterally, from one machine to another.
-- Once Microsegmentation is enabled in the cluster, VMs can be easily protected through Security Policies as created in the Prism Central UI. These function as labels that can easily be applied to VMs without any additional network setup.
+- Microsegmentation, part of Flow, is a decentralized security framework included from within Prism Central.
+- Microsegmentation offers additional protection against malicious threats that originate from within the data center and spread laterally, from one machine to another.
+- Once Flow is enabled in the cluster, VMs can be easily protected through Security Policies as created in the Prism Central UI. These function as labels that can easily be applied to VMs without any additional network setup.
+- Calm blueprints can be used to quickly import an application configuration and have the cluster provision the resources needed for the particular application to run automatically.
