@@ -36,6 +36,7 @@ From the Windows Client VM open a web browser and enter the IP address of the lo
 
 Verify Application is Categorized
 ---------------------------------
+##VERIFY VM COUNTS HERE##
 
 
 Access the Restricted DB Tier
