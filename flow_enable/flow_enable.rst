@@ -11,7 +11,7 @@ Overview
 
   Estimated time to complete: 10-20 MINUTES
 
-In this exercise you will enable Nutanix Flow, formally known as Microsegmentation, and create the VMs to be used throughout the remaining Flow exercises, **if you have not cloned the VMs already as part of the Lab - Deploying Workloads exercise**.
+In this exercise you will enable Nutanix Flow and create the VMs to be used throughout the remaining Flow exercises with Calm, **if you have not created the VMs already as part of the Lab - Calm Blueprint (3TWA) exercise**.
 
 Enabling Flow
 ++++++++++++++++++++++++++
@@ -38,19 +38,19 @@ Click **Enable**
 
 .. figure:: images/enable.png
 
-Import Blueprint within Calm
+Import Blueprint with Calm
 ++++++++++++++++++++++++++++
 
 .. note::
 
-In this section we will import a Calm Blueprint into Prism Central that will setup the VMs needed for this lab upon Launching.
+In this section we will import a Calm Blueprint into Prism Central that will create and configure the VMs needed for this lab.
 
-To import a Blueprint within Calm, ensure it is enabled (Please see the Enable Calm optional lab if this isn't the case).
+To import a Calm Blueprint, ensure Calm is enabled (Please see the Enable Calm optional lab if this isn't the case).
 
 Download the blueprint for this lab at the following link:
 <BP link>
 
-From the Dashboard within Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
+From the Dashboard in Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
 .. figure:: images/access_calm.png
 
 Click on the blueprint icon from the menu on the left (hovering over all of the icons shows their labels).
@@ -62,7 +62,7 @@ Name the blueprint with your initials, **abc_TaskManager** and choose the **Defa
 
 Once the blueprint finishes uploading, it will automatically open.
 
-Let's configure the non-Flow related changes of this blueprint before continuing.
+Let's configure the non-Flow related changes in this blueprint before continuing.
 
 Update the credentials:
   Edit the credentials for Linux machines:
@@ -78,23 +78,29 @@ Update the credentials:
   Select **WINDOWS**.
   Change the **Secret Type** to **Password**.
   Type **nutanix/4u** in the **Password** field.
-  .. figure:: Mysql_password.png
 
 Click **Save** from the top right menu, then click the **Back** green button.
 
 Update the Mysql_password application profile variable:
   On the right hand side, click on the textbox next to Mysql_password and type **nutanix/4u** in the **Password** field.
   Click **Save** from the top right menu.
+  .. figure:: Mysql_password.png
 
-Add the Primary network to to NIC in each of the VMs.
+## ADD SSH KEY STEPS HERE?? ##
 
-Edit the VM Name field in each of the VMs to add your initials. Go under VM Configuration and place your initials in front of the name field similar to the example shown below:
-yourInitials-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
+Set the Primary NIC network in each of the VMs.
+  Select each of the Services in the blueprint pane.
+  Select VM in the right hand pane and scroll down to NETWORK ADAPTERS (NICS) (1).
+  Select the primary network (WHAT IS THIS NAMED?).
+  Repeat for each service.
+
+Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown below:
+abc-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
 
 Takeaways
 +++++++++
 
-- Microsegmentation, part of Flow, is a decentralized security framework included from within Prism Central.
+- Microsegmentation, part of Flow, is a decentralized security framework managed from Prism Central.
 - Microsegmentation offers additional protection against malicious threats that originate from within the data center and spread laterally, from one machine to another.
-- Once Flow is enabled in the cluster, VMs can be easily protected through Security Policies as created in the Prism Central UI. These function as labels that can easily be applied to VMs without any additional network setup.
+- Once Flow is enabled in the cluster, VMs can be easily protected through Security Policies created in the Prism Central UI. These function as labels that can easily be applied to VMs without any additional network setup.
 - Calm blueprints can be used to quickly import an application configuration and have the cluster provision the resources needed for the particular application to run automatically.
