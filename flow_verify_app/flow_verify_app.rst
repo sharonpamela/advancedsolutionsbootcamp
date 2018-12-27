@@ -27,53 +27,82 @@ Access Task Manager Application
 -----------------------------------------
 Before evaluating the Flow security policy, verify that the Task Manager application is running.
 
-Open the Console of the Windows client VM through the Calm abc_TaskManager Application. Selecting the Application, click Services, and open the Windows Client service.
+Open the Console of the Windows client VM using Prism Central.
 
-Find the IP of the newly deployed Load Balancer VM by selecting the abc_TaskManager application, click Services and select the HAProxy service.
+Navigate to <icon>hamburger menu **Virtual Infrastructure > VMs** and type your initials into the search bar. Click **View all X VMs**, select your Windows client VM, and click **Actions > Launch Console**.
 
-From the Windows Client VM open a web browser and enter the IP address of the load balancer. Confirm that a Task Manager application loads and that tasks can be added or deleted from the web interface.
+Find the IP of the newly deployed Load Balancer VM in the VM list.
+
+From the Windows Client VM open a web browser and enter the IP address of the load balancer. Confirm that the Task Manager web application loads and that tasks can be added or deleted from the web interface.
+
+TODO new image
+.. figure:: images/
 
 
-Verify Application is Categorized
+Verify Application Categories
 ---------------------------------
-##VERIFY VM COUNTS HERE##
+Calm provisions the VMs for the applications with the correct categories during VM creation. These categories should place the VMs into the Application Security Policy created in previous steps. Verify that the VMs are properly categorized.
+
+Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc**.
+
+Verify the number of VMs in the three application tiers. The load balancer and database tier should have one VM. The web tier should have two VMs.
+
+TODO new image
+.. figure:: images/
+
+Click on the VM count to see a list of the VMs inside the tier. 
+
+Select the checkbox next to any VM in the application and navigate to **Actions > Manage Categories**.
+
+Note the categories applied to the VM as well as the associated security policy.
 
 
-Access the Restricted DB Tier
+Access the Restricted Database Tier
 -----------------------------------------
-The application security policy does not allow any access to the database tier, but this policy is in monitor mode. Confirm that the Windows client VM can ping the database VM.
+The application security policy **AppTaskMan-abc** does not allow any outside access to the database tier, but this policy is currently in monitor mode. Confirm that the Windows client VM can ping the database VM.
+
+Open the console of the Windows Client VM.
+
+Click the Start menu, type cmd.exe, and type ping <database server IP>.
+
+Once connectivity is confirmed, enter **ping -t <database server IP>** as an ongoing connectivity test from the Windows client VM to the database.
 
 
 Add Flows to a Policy Using Flow Visualization
 ..............................................
 
-View the detected traffic flows from Environment: Dev
+View Detected Traffic Flows
 -----------------------------------------------------
 
-Navigate to **Explore > Security Policies > App-TaskMan-abc** to view the detected traffic flows from **Environment: Dev**
+Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc** to view the detected traffic flows to and from the Task Manager application.
 
-Confirm that **Environment: Dev** is listed as a source to **AppTier: TMLB-abc**. This can take a few minutes to appear.
+Confirm that **Environment: Dev** is listed as a source. The source box and line should appear in yellow to indicate the detected ping and web traffic from our Windows client VM in the dev environment. This can take a few minutes to appear.
 
-.. figure:: images/flow_viz.png
+TODO new image
+.. figure:: images/
 
 Hover over the yellow flow line from **Environment: Dev** to **AppTier: TMLB-abc** to view the protocol and connection information.
 
-Click the yellow flow line to view a detailed graph of connection attempts.
+Click the yellow flow line to view a detailed graph of connection attempts for the past 24 hours.
 
-.. figure:: images/network_flows.png
+TODO new image
+.. figure:: images/
+
+Are there any other detected traffic flows inbound or outbound? Hover over these connections and determine what these ports are used for.
+
 
 Add The Detected Flow to The Security Policy
 --------------------------------------------
-
 Select **Update** in the top right corner to edit the policy.
 
 Click **Next** and view the detected traffic flows.
 
-Hover over the **Environment: Dev** source in the inbound list.
+Hover over the **Environment: Dev** source in the inbound list that connects to **AppTier: TMLB-abc**.
 
 Select the green check box to add this source to the inbound allowed list.
 
-.. figure:: images/add_env_flow.png
+TODO new image
+.. figure:: images/
 
 Select OK to Add to Rule
 
@@ -81,44 +110,36 @@ Hover over the blue **Environment: Dev** source and select the pencil icon to ed
 
 Select the pencil on **AppTier: TMLB-abc** to define specific ports and protocols.
 
-Currently ICMP is allowed due to the ping detected in the previous task.
+Currently ICMP is allowed due to the ping detected in the previous task. Add TCP port 80 to the rule.
 
-Select **Save** to save the ICMP rule.
+TODO new image
+.. figure:: images/
+
+Select **Save** to save rule.
 
 Select **Next** to review the changes to the policy.
 
+
 Move Policy from **Monitoring** Mode to **Applied** Mode
 ------------------------------------------------------------
-
-Now that the policy is complete, move it from monitor mode to apply mode.
+Now that the policy is complete, move it from monitor mode to apply mode. to start blocking traffic.
 
 Select **Apply Now** to save the policy and move it into apply mode.
 
-Navigate to **Explore > Security Policies > App-TaskMan-abc**.
+Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc**.
 
 Confirm that **Environment: Dev** shows in blue as an allowed source.
 
-Attempt to send traffic from another source such as your remote desktop or from the DB to the Web tier.
+What happens to the continuous ping traffic from the Windows client to the database server? Is this traffic blocked?
 
-Is this traffic blocked?
+Verify that the Windows Client VM can still access the Task Manager application using the web browser and the load balancer IP address.
 
-
-
-Edit the Categories of a Running VM (MAYBE WE DONT DO THIS ONE ANYMORE)
------------------------------------------
-- Change windows client from environment: dev to environment: prod
-- Verify WindowsClient can access the task manager app
-
-
-
-##################################################################
-Rest of flow lab
-- isolation:
-    - Environment: dev-abc and Environment:prod-abc applied to the client and LB VMs
-- quarantine:
-    - strict quarantine the db VM and confirm the app stops working
-##################################################################
+Verify console access from Calm to the load balancer, web, and database service VMs, which uses TCP port 22.
 
 
 Takeaways
 +++++++++
+- Calm can provision VMs with Flow categories so these VMs are immediately protected by a security policy.
+- Flow visualization allows you to see the flows that are occurring within a policy. From there it's easy to add the flows that should be allowed.
+- Policies created in Monitor mode allow all traffic.
+- Switching an application policy to Apply mode blocks traffic unless specifically allowed by the policy.

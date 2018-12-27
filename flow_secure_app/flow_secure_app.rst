@@ -22,11 +22,14 @@ Create and Assign Categories
 Update **AppType** with a new category value **TaskMan-abc**.
 ----------------------------------------------------------------
 
-Log on to the Prism Central environment and navigate to the <icon>hamburger menu. Once there click on **Virtual Infrastructure > Categories**.
+Log on to the Prism Central environment and navigate to the <icon>hamburger menu. Click on **Virtual Infrastructure > Categories**.
 
 Click the check box beside **AppType**. Click **Actions > Update**.
 
 Scroll down and click the plus sign beside the last entry.
+
+TODO new image
+.. figure:: images/
 
 Enter **TaskMan-abc**, replacing abc with your initials and click **Save**.
 
@@ -53,7 +56,13 @@ Click on the Blueprint and select the **abc_TaskManager** blueprint you imported
 
 Click on the WebServer_AHV service in the blueprint pane > Click the **VM** tab in the right side menu.
 
+TODO new image
+.. figure:: images/
+
 Scroll down until you see the **CATEGORIES** section > Click **Key:Value** > Select **AppTier: TMWeb-abc** and **AppType: TaskMan-abc**.
+
+TODO new image
+.. figure:: images/
 
 Repeat the same steps with each of the services in the blueprint:
 HAProxy -> AppTier: TMLB-abc and AppType: TaskMan-abc
@@ -68,6 +77,9 @@ Launch the application blueprint to initiate the creation of the VMs associated 
 Select Save to commit any changes.
 
 Click Launch and name the application **abc_TaskManager**, replacing abc with your initials.
+
+TODO new image
+.. figure:: images/
 
 Finally, Click Create.
 
@@ -86,14 +98,15 @@ Click **Create Security Policy > Secure an Application**.
 
 Fill out the following fields and click **Next**:
 
-- **Name** - App-TaskMan-abc, replacing abc with your initials.
+- **Name** - AppTaskMan-abc, replacing abc with your initials.
 - **Purpose** - Protect the Task Manager application by restricting unnecessary access.
 - **Secure this app** - AppType: TaskMan-abc.
 Do NOT select the check box for the option **Filter the app type by category**.
 
 Click **Next**
 
-.. figure:: images/create_app_vm_sec_pol.png
+TODO new image
+.. figure:: images/
 
 Click on **Ok, Got it!** if prompted with the tutorial diagram.
 
@@ -108,11 +121,14 @@ Select **AppTier: TMLB-abc** from the drop down.
 
 Repeat for **AppTier: TMWeb-abc** and **AppTier: TMDB-abc**
 
+TODO new image
+.. figure:: images/
 
-Add New Inbound Source Production: Environment
+
+Add New Inbound Source Environment: Production
 ----------------------------------------------
 
-In the Inbound rules section, allow incoming traffic with the following steps:
+In the Inbound rules section, allow incoming traffic from the production environment with the following steps:
 
 - Leave **Whitelist Only** selected.
 - Select **+ Add Source**.
@@ -121,17 +137,23 @@ In the Inbound rules section, allow incoming traffic with the following steps:
 
 Click + which appears on the left side of **AppTier: TMLB-abc**.
 
+TODO new image
+.. figure:: images/
+
 This opens the Create Inbound Rule window.
 
 In the Protocol column, select **TCP** and type port 80 to allow web traffic into the load balancer. Click **Save**.
 
+TODO new image
+.. figure:: images/
+
 Add New Inbound Source Calm
 ---------------------------
-Calm requires access to log into newly provisioned VMs.
+Calm requires access to log into newly provisioned VMs. Add Prism Central's IP address to the security policy.
 
 - Select **+ Add Source**.
 - Select **Add source by: Subnet/IP** using the drop down.
-- Type enter the IP for Prism central followed by /32. Example: 10.20.X.39/32. Click Add.
+- Type the IP for Prism central followed by /32 to denote single IP in subnet mask slash notation. Example: 10.20.X.39/32. Click Add.
 
 Click + which appears on the left side of **AppTier: TMLB-abc** after completing the steps above.
 
@@ -139,7 +161,7 @@ This opens the Create Inbound Rule window.
 
 In the Protocol column, select **TCP** and type port 22 to allow Calm to access Linux VMs. Click **Save**.
 
-With the Subnet/IP inbound connection selected, repeat this step for all remaining tiers to allow TCP port 22 from Calm.
+With the Prism Central Subnet/IP inbound connection selected, repeat this step for all remaining tiers to allow TCP port 22 from Calm.
 
 Add New Outbound Source
 -----------------------
@@ -152,6 +174,9 @@ Change the outbound source to **Whitelist Only**
 
 Click + which appears on the right side of **AppTier: TMDB-abc** after completing the steps above.
 
+TODO new image
+.. figure:: images/
+
 This opens the Create Outbound Rule window.
 
 In the Protocol column, select **UDP** and type port 53. Click **Save**.
@@ -163,14 +188,22 @@ Each tier of the application communicates with other tiers and the policy must a
 
 Click **Set Rules within App**
 
+TODO new image
+.. figure:: images/
+
 Select AppTier: TMLB-abc and click on "No" under the question to disallow communication between VMs within this tier.
 
 With the AppTier: TMLB-abc selected, click on the + sign net to the AppTier: TMWeb-abc.
 
+TODO new image
+.. figure:: images/
+
 This opens the Create Tier to Tier Rule window.
 
 In the Protocol column, select **TCP** and type port 80. Click **Save**.
-<image>
+
+TODO new image
+.. figure:: images/
 
 Select AppTier: TMWeb-abc and click on "No" under the question to disallow communication between VMs within this tier.
 
@@ -179,7 +212,9 @@ With the AppTier: TMWeb-abc selected, click on the + sign net to the AppTier: TM
 This opens the Create Tier to Tier Rule window.
 
 In the Protocol column, select **TCP** and type port 3306. Click **Save**.
-<image>
+
+TODO new image
+.. figure:: images/
 
 Click **Next**.
 

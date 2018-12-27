@@ -86,15 +86,15 @@ Update the Mysql_password application profile variable:
   Click **Save** from the top right menu.
   .. figure:: Mysql_password.png
 
-## ADD SSH KEY STEPS HERE?? ##
+## TODO ADD SSH KEY STEPS HERE?? ##
 
 Set the Primary NIC network in each of the VMs.
   Select each of the Services in the blueprint pane.
   Select VM in the right hand pane and scroll down to NETWORK ADAPTERS (NICS) (1).
-  Select the primary network (WHAT IS THIS NAMED?).
+  Select the primary network (TODO WHAT IS THIS NAMED?).
   Repeat for each service.
 
-Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown below:
+Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown belowm replacing abc with your initials:
 abc-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
 
 Takeaways

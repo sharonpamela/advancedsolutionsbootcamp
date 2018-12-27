@@ -9,47 +9,55 @@ Overview
 
 .. note::
 
-  Estimated time to complete: 15-30 MINUTES
+  Estimated time to complete: 5-10 MINUTES
 
 In this task we will place a VM into quarantine and observe the behavior of the VM. We will also inspect the configurable options inside the quarantine policy.
 
 Quarantine a VM and Explore the Quarantine Policy
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
-Confirm Communication between flow-abc-1 and flow-abc-2
+Confirm Task Manager App Availability
 .......................................................
 
-Log on to the Prism Central environment and navigate to **Explore > VMs**.
+Log on to the Prism Central environment and navigate to <icon>hamburger menu **Services > Calm**.
 
-Open the VM console of **flow-abc-1** and **flow-abc-2** by selecting one VM at a time and clicking on the checkbox next to it.
+Navigate to <icon>hamburger menu **Virtual Infrastructure > VMs** and type your initials into the search bar. Click **View all X VMs**, select your Windows client VM, and click **Actions > Launch Console**.
 
-Click **Actions > Launch Console**.
 
-.. figure:: images/quarantine_pings.png
+TODO new image
+.. figure:: images/
 
-Log into both VMs with the following user credentials:
+Find the IP of the newly deployed Load Balancer VM in the VM list.
 
-- **Username** - root
-- **Password** - nutanix/4u
+From the Windows Client VM open a web browser and enter the IP address of the load balancer. Confirm that the Task Manager web application loads and that tasks can be added or deleted from the web interface.
 
-Find the IPs of the VMs via the command *ifconfig*, and start a continuous ping from the **flow-abc-1** VM to the **flow-abc-2** VM.
+Click the Start menu, type cmd.exe, and type ping <load balancer IP>.
+
+Once connectivity is confirmed, enter **ping -t <load balancer IP>** as an ongoing connectivity test from the Windows client VM to the database.
+
+TODO new image
+.. figure:: images/
 
 Quarantine a VM and Edit The Quarantine Policy
 ..............................................
 
-Quarantine the **flow-abc-2** VM by navigating to **Explore > VMs**.
+Quarantine the load balancer HAProxy VM in your Task Manager application by navigating to <icon>hamburger menu **Virtual Infrastructure > VMs**.
 
-Select **flow-abc-2 > Actions > Quarantine VMs**. Select **Forensic** and click **Quarantine**.
+Select **abc-HAProxy-X-XXXX-XXXX** > Actions > Quarantine VMs**. Select **Forensic** and click **Quarantine**.
 
-.. figure:: images/select_forensic.png
+TODO new image
+.. figure:: images/
 
-What happens with the continuous ping between VMs 1 and 2?
+What happens with the continuous ping between your Windows client and the load balancer? Can you access the Task Manager application web page from the Windows client?
 
 Navigate to **Explore > Security Policies > Quarantine**.
 
 Select **Update** in the top right corner then select **+ Add Source** to the Quarantine policy.
 
-Add a source by **Subnet/IP** with the IP address of **flow-abc-1**, a netmask of **/32**. Click on the plus sign ( + ) near **Forensic** category and allow any protocol on any port to the Forensic quarantine category.
+Add a source by **Subnet/IP** with the IP address of the Windows client VM, and a netmask of **/32**. Click on the plus sign ( + ) near **Forensic** category and allow any protocol on any port to the Forensic quarantine category.
+
+TODO new image
+.. figure:: images/
 
 What targets can this source be connected to?
 
@@ -57,12 +65,13 @@ What is the difference between the Forensic and Strict quarantine mode?
 
 Select **Next > Apply Now** to save the policy.
 
-What happens to the pings between **flow-abc-1** and **flow-abc-2** after the source is added?
+What happens to the pings to the load balancer after the source is added? Can you access the Task Manager web application?
 
-Unquarantine **flow-abc-2** by navigating to **Explore > VMs > flow-abc-2 > Actions > Unquarantine VM**.
+Unquarantine the load balancer VM by navigating to **abc-HAProxy-X-XXXX-XXXX** > Actions > Unquarantine VMs**.
 
 Takeaways
 +++++++++
 
-- In this exercise you utilized Flow to quarantine a VM in the environment using the two modalities of the quarantine policy, which are strict and forensic.
-- The forensic modality is key in allowing you to study the connection patterns into and out of a VM in order to establish which connections are allowed or denied while the VM is quarantined.
+- In this exercise you utilized Flow to quarantine a VM using the two modalities of the quarantine policy, which are strict and forensic.
+- Quarantine policies are evaluated at a higher priority than application policies. A quarantine traffic can block traffic that would otherwise be allowed by an application policy.
+- The forensic modality is key to allow limited access a quarantined VM while the VM is quarantined.
