@@ -31,8 +31,7 @@ Scroll down and click the plus sign beside the last entry.
 
 Enter **Prod-abc**, replacing abc with your initials and click **Save**.
 
-TODO new image
-.. figure:: images/create_category.png
+.. figure:: images/flow_iso_1_create_prod.png
 
 
 Add Category to Task Manager VMs
@@ -43,8 +42,7 @@ Select the load balancer, web, and database VMs that are part of the Task Manage
 
 Search for and select the newly created **Prod-abc** category. Click **Save** to apply this category to all VMs in the application.
 
-TODO new image
-.. figure:: images/
+.. figure:: images/flow_iso_2_assign_prod.png
 
 Create a New Security Policy
 ............................
@@ -63,8 +61,7 @@ Do NOT select the check box for **Apply the isolation only within a subset of th
 
 • Click **Apply Now** to save the policy in Apply mode.
 
-TODO new image
-.. figure:: images/create_isol_pol.png
+.. figure:: images/flow_iso_3_create_iso_policy.png
 
 
 Confirm communication is NOT possible after applying the Isolation Policy
@@ -84,10 +81,10 @@ Navigate to <icon>hamburger menu **Policies > Security Policies** and select **i
 
 Select **Actions > Delete** and type **DELETE** to confirm. Click **OK** to delete the policy.
 
+.. figure:: images/flow_iso_4_delete.png
+
 Confirm that the Task Manager application is now reachable from the Windows client VM.
 
-TODO new image
-.. figure:: images/
 
 Takeaways
 +++++++++

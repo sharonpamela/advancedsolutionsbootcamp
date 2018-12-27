@@ -23,9 +23,7 @@ Log on to the Prism Central environment and navigate to <icon>hamburger menu **S
 
 Navigate to <icon>hamburger menu **Virtual Infrastructure > VMs** and type your initials into the search bar. Click **View all X VMs**, select your Windows client VM, and click **Actions > Launch Console**.
 
-
-TODO new image
-.. figure:: images/
+.. figure:: images/flow_q_1_console.png
 
 Find the IP of the newly deployed Load Balancer VM in the VM list.
 
@@ -35,33 +33,36 @@ Click the Start menu, type cmd.exe, and type ping <load balancer IP>.
 
 Once connectivity is confirmed, enter **ping -t <load balancer IP>** as an ongoing connectivity test from the Windows client VM to the database.
 
-TODO new image
-.. figure:: images/
-
 Quarantine a VM and Edit The Quarantine Policy
 ..............................................
 
 Quarantine the load balancer HAProxy VM in your Task Manager application by navigating to <icon>hamburger menu **Virtual Infrastructure > VMs**.
 
-Select **abc-HAProxy-X-XXXX-XXXX** > Actions > Quarantine VMs**. Select **Forensic** and click **Quarantine**.
+Select **abc-HAProxy-X-XXXX-XXXX** > Actions > Quarantine VMs**. 
 
-TODO new image
-.. figure:: images/
+.. figure:: images/flow_q_2_action_menu.png
+
+Select **Forensic** and click **Quarantine**.
+
+.. figure:: images/flow_q_3_forensic_select.png
 
 What happens with the continuous ping between your Windows client and the load balancer? Can you access the Task Manager application web page from the Windows client?
 
-Navigate to **Explore > Security Policies > Quarantine**.
+Navigate to <icon>hamburger menu **Policies > Security Policies > Quarantine**.
 
 Select **Update** in the top right corner then select **+ Add Source** to the Quarantine policy.
 
-Add a source by **Subnet/IP** with the IP address of the Windows client VM, and a netmask of **/32**. Click on the plus sign ( + ) near **Forensic** category and allow any protocol on any port to the Forensic quarantine category.
+Add a source by **Subnet/IP** with the IP address of the Windows client VM, and a netmask of **/32**. 
 
-TODO new image
-.. figure:: images/
+.. figure:: images/flow_q_4_add_forensic_src.png
 
 What targets can this source be connected to?
 
 What is the difference between the Forensic and Strict quarantine mode?
+
+Click on the plus sign ( + ) near **Forensic** category and allow any protocol on any port to the Forensic quarantine category.
+
+.. figure:: images/flow_q_5_add_rule.png
 
 Select **Next > Apply Now** to save the policy.
 
