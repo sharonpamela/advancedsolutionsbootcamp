@@ -28,7 +28,9 @@ Click **Flow**.
 
 Select the **Enable Flow** check box within the **Enable Flow** dialog box.
 
+
 .. figure:: images/enable_flow.png
+
 
 .. note::
 
@@ -36,7 +38,9 @@ Select the **Enable Flow** check box within the **Enable Flow** dialog box.
 
 Click **Enable**
 
+
 .. figure:: images/enable.png
+
 
 Import Blueprint with Calm
 ++++++++++++++++++++++++++++
@@ -51,11 +55,13 @@ Download the blueprint for this lab at the following link:
 <TODO BP link>
 
 From the Dashboard in Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
+
 .. figure:: images/access_calm.png
 
 Click on the blueprint icon from the menu on the left (hovering over all of the icons shows their labels).
 
 Click **Upload Blueprint** and navigate to the blueprint provided for this course at:
+
 .. figure:: images/blueprint.png
 
 Name the blueprint with your initials, **abc_TaskManager** and choose the **Default** project.
@@ -71,6 +77,7 @@ Update the credentials:
   Change the **Username** to **root**
   Change the **Secret Type** to **Password**.
   Type **nutanix/4u** in the **Password** field.
+
   .. figure:: images/credentials.png
 
   Edit the credentials for Windows machines:
@@ -84,6 +91,7 @@ Click **Save** from the top right menu, then click the **Back** green button.
 Update the Mysql_password application profile variable:
   On the right hand side, click on the textbox next to Mysql_password and type **nutanix/4u** in the **Password** field.
   Click **Save** from the top right menu.
+
   .. figure:: Mysql_password.png
 
 ## TODO ADD SSH KEY STEPS HERE?? ##

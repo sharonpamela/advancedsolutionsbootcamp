@@ -68,7 +68,7 @@ Select **Next > Apply Now** to save the policy.
 
 What happens to the pings to the load balancer after the source is added? Can you access the Task Manager web application?
 
-Unquarantine the load balancer VM by navigating to **abc-HAProxy-X-XXXX-XXXX** > Actions > Unquarantine VMs**.
+Unquarantine the load balancer VM by navigating to **abc-HAProxy-X-XXXX-XXXX > Actions > Unquarantine VMs**.
 
 Takeaways
 +++++++++
