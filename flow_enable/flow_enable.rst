@@ -92,7 +92,7 @@ Update the Mysql_password application profile variable:
   On the right hand side, click on the textbox next to Mysql_password and type **nutanix/4u** in the **Password** field.
   Click **Save** from the top right menu.
 
-  .. figure:: Mysql_password.png
+  .. figure:: images/Mysql_password.png
 
 ## TODO ADD SSH KEY STEPS HERE?? ##
 

@@ -38,7 +38,7 @@ Quarantine a VM and Edit The Quarantine Policy
 
 Quarantine the load balancer HAProxy VM in your Task Manager application by navigating to <icon>hamburger menu **Virtual Infrastructure > VMs**.
 
-Select **abc-HAProxy-X-XXXX-XXXX** > Actions > Quarantine VMs**. 
+Select **abc-HAProxy-X-XXXX-XXXX > Actions > Quarantine VMs**. 
 
 .. figure:: images/flow_q_2_action_menu.png
 
