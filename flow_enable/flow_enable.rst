@@ -48,7 +48,7 @@ In this section we will import a Calm Blueprint into Prism Central that will cre
 To import a Calm Blueprint, ensure Calm is enabled (Please see the Enable Calm optional lab if this isn't the case).
 
 Download the blueprint for this lab at the following link:
-<BP link>
+<TODO BP link>
 
 From the Dashboard in Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
 .. figure:: images/access_calm.png
@@ -96,6 +96,9 @@ Set the Primary NIC network in each of the VMs.
 
 Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown belowm replacing abc with your initials:
 abc-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
+
+.. figure:: images/calm_prefix_vm_name.png
+
 
 Takeaways
 +++++++++
