@@ -11,7 +11,7 @@ Overview
 
   Estimated time to complete: 10-20 MINUTES
 
-In this exercise you will enable Nutanix Flow and create the VMs to be used throughout the remaining Flow exercises with Calm, **if you have not created the VMs already as part of the Lab - Calm Blueprint (3TWA) exercise**.
+In this exercise you will enable Nutanix Flow and edit a blueprint within Calm that will be used to create an application that we will protect in the subsequent exercises.
 
 Enabling Flow
 ++++++++++++++++++++++++++
@@ -60,7 +60,7 @@ From the Dashboard in Prism, Click the <icon here> Navigation menu on the top le
 
 Click on the blueprint icon from the menu on the left (hovering over all of the icons shows their labels).
 
-Click **Upload Blueprint** and navigate to the blueprint provided for this course at:
+Click **Upload Blueprint** and navigate to the blueprint provided for this course:
 
 .. figure:: images/blueprint.png
 
@@ -74,32 +74,63 @@ Update the credentials:
   Edit the credentials for Linux machines:
   Click on **Credentials** from the top menu.
   Select **CENTOS**.
-  Change the **Username** to **root**
-  Change the **Secret Type** to **Password**.
-  Type **nutanix/4u** in the **Password** field.
-
-  .. figure:: images/credentials.png
+  - Ensure the **Username** is **centos**
+  - Ensure the **Secret Type** is set to **SSH Private Key**.
+  - Paste the private key below into the field provided (include the begin and end tags with all dashes):
+  .. code-block:: bash
+     -----BEGIN RSA PRIVATE KEY-----
+     MIIEowIBAAKCAQEAw6CZT4/gAj8hxptH/hck0D0bfptR+ibLci7bxSVJ7Q8hdv3a
+     qXEPUHyisNUHI8xnUkvAeh63Tjoymc+No9Nf2C1hctmKwy0Dh3DSYul6MAkNOfQu
+     2x3oT+ZajTem0SM3UJ6hmRmIvIimM1AoTFbrH7D3eWWaNKxwgIggD9chaq3EpqvN
+     0DTdV/BWdQjqDAeurysg9qxKHis+JYpRHlisj+ES5pDnNXjGEDXcjDgjRRWypgtZ
+     zyfjKcaNR3zUfOEe1jZeaBGjUDjkTfjWjs7uQcYptoYSb1N+yfudOGs2dTwlIh4g
+     tPswcOCX3jijL7SJ5pBGUBHd8uEayBy1ygeGGwIDAQABAoIBADINZSx2I1pvzLSE
+     Bmd8hG7DM8Ww98iJJISSeKh4YfHFbUqEqO2xf7mYKggUeT8vjUABIb4dHclmGoxA
+     Dn1cF6m38rbv8hD982kz9KBaHGkt57RsRZDKliXbSk/XbVcVK5H1BGOnpNSYIe3/
+     FFBz7LSvEqJ83Hedpys7qPhkkqg4WsgRZrrQNgkA4WOSm8wSnTHrZnI7VHY/MpYI
+     606nKx39O1cjN0tiiXKnasgqKZWDfOO7NvhD+YXPnky2XT+mWoPFmDEx8jrbHt7Q
+     DTs7xFpC6TYfQPh7lyhsQDcEYjWZn/ZdEKOhCeo24REbez+tz4s2dL3EyGKbQKkz
+     FltVMAECgYEA8IGp5e8zJBhwWq/N7bM5NutUZn9SsEQ039KUTzGUmeE4nnt+0iFf
+     t4Uor1/Hzj1PrYqgJl9tHhAXQslYH/l6W7X+u49TJAl5SuESfrH3x5+V95lC5nI4
+     SEai7PjmTRZ45jc0tCKnxOgQnCcS6qHgyxWxItr3ps7aMCHrmaBTjCsCgYEA0DrO
+     YdRxWCFZOrmwP0xfbPKbuv2sjV6MN+SeDFAl4MV+DYMIF0xgESakLWybisaYytwH
+     IRANEDAEuXMUblCJic+a35FC14IlzU3ksZVf83zyleKB15iEgDkI7EoyczumlKiD
+     sumBoCBALWzwxNd1tiDm9LyHjnpx2+y640VfxdECgYAPleeDrg+bXDYTumbW65Fe
+     nLt4dPHP2GuwwX248BaYLj80Df628VC5nNh5HPTeyZxbO6uLMQ3qL9LCEjgywkEK
+     pm2ei/gwUqjYkGNZcIEFH7NhOz5ZnrdE/8bZInwSLM2i5Zr1vXUvznYdGG8iY2Ek
+     5//1qUj5N1huXBRffUNMxwKBgELQq8p+ZYQ25y/Nx3z4H6KQ0mGU5lpSXUHODNy8
+     lvrhxAnH4r+/FRBLyuB8egh0ozBsm6kDQn3QOqPbBlJDa26Z/AMC1GTccQ7IkLpe
+     yPQTQq/Ph4RLfzC5nGBdioSpPlFzJRcykBJ2ZsFstHElBbNUKWecWw7fwUslUe59
+     IzcRAoGBAJsNwacNC6VeojCKcp4aaQhH8vEd8F5cff2qGTMjplhqSyl1eqr7IJ3n
+     AajZbsS2UJa35UxpSXzeMoUaQB6EG5e//BG5Br+6n1aOHlERJV7t9/Z4re9g2lIk
+     msuEm+VNsXpZQ4lspARV8kqWcNzrhGSfgq1BEHWIHBKp93mMigL4
+     -----END RSA PRIVATE KEY-----
 
   Edit the credentials for Windows machines:
   Click on **Credentials** from the top menu (if not there already).
   Select **WINDOWS**.
-  Change the **Secret Type** to **Password**.
-  Type **nutanix/4u** in the **Password** field.
+  - **Username** - Administrator
+  - **Secret** - Password
+  - **Key** - nutanix/4u
 
 Click **Save** from the top right menu, then click the **Back** green button.
 
-Update the Mysql_password application profile variable:
-  On the right hand side, click on the textbox next to Mysql_password and type **nutanix/4u** in the **Password** field.
-  Click **Save** from the top right menu.
-
+Update the application profile variables:
+  1. Edit the Mysql_password variable:
+  On the left hand side menu, click on the application overview box and select the Nutanix Profile.
+  Locate the Mysql_password from the right hand side menu and type **nutanix/4u** in the **Password** field.
   .. figure:: images/Mysql_password.png
 
-## TODO ADD SSH KEY STEPS HERE?? ##
+  2. Edit the INSTANCE_PUBLIC_KEY variable by pasting the public key below beginning with ssh-rsa and ending with .com:
+  .. code-block:: bash
+     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDoJlPj+ACPyHGm0f+FyTQPRt+m1H6JstyLtvFJUntDyF2/dqpcQ9QfKKw1QcjzGdSS8B6HrdOOjKZz42j01/YLWFy2YrDLQOHcNJi6XowCQ059C7bHehP5lqNN6bRIzdQnqGZGYi8iKYzUChMVusfsPd5ZZo0rHCAiCAP1yFqrcSmq83QNN1X8FZ1COoMB66vKyD2rEoeKz4lilEeWKyP4RLmkOc1eMYQNdyMOCNFFbKmC1nPJ+Mpxo1HfNR84R7WNl5oEaNQOORN+NaOzu5Bxim2hhJvU37J+504azZ1PCUiHiC0+zBw4JfeOKMvtInmkEZQEd3y4RrIHLXKB4Yb centos@nutanix.com
+
+  Click **Save** from the top right menu.
 
 Set the Primary NIC network in each of the VMs.
   Select each of the Services in the blueprint pane.
   Select VM in the right hand pane and scroll down to NETWORK ADAPTERS (NICS) (1).
-  Select the primary network (TODO WHAT IS THIS NAMED?).
+  Select the **Primary** network.
   Repeat for each service.
 
 Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown belowm replacing abc with your initials:
