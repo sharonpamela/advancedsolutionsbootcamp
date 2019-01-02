@@ -43,9 +43,7 @@ Click **Enable**
 
 
 Import Blueprint with Calm
-++++++++++++++++++++++++++++
-
-.. note::
++++++++++++++++++++++++++++
 
 In this section we will import a Calm Blueprint into Prism Central that will create and configure the VMs needed for this lab.
 

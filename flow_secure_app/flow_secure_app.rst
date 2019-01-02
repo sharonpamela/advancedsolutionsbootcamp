@@ -20,7 +20,7 @@ Create and Assign Categories
 ............................
 
 Update **AppType** with a new category value **TaskMan-abc**.
-----------------------------------------------------------------
+-------------------------------------------------------------
 
 Log on to the Prism Central environment and navigate to the <icon>hamburger menu. Click on **Virtual Infrastructure > Categories**.
 
@@ -49,7 +49,7 @@ Click **Save**.
 
 
 Assign Categories to the Calm Blueprint.
----------------------------------------------------------
+----------------------------------------
 
 Within the <icon>hamburger menu in Prism Central, navigate to **Services > Calm**.
 
@@ -88,7 +88,7 @@ Secure the Task Manager Application
 ...................................
 
 Create a security policy to protect the Task Manager application.
---------------------------------------------------------------------
+-----------------------------------------------------------------
 
 Navigate to the <icon>hamburger menu **Virtual Infrastructure > Policies > Security Policies**.
 
@@ -99,6 +99,7 @@ Fill out the following fields and click **Next**:
 - **Name** - AppTaskMan-abc, replacing abc with your initials.
 - **Purpose** - Protect the Task Manager application by restricting unnecessary access.
 - **Secure this app** - AppType: TaskMan-abc.
+
 Do NOT select the check box for the option **Filter the app type by category**.
 
 Click **Next**
@@ -144,7 +145,7 @@ In the Protocol column, select **TCP** and type port 80 to allow web traffic int
 .. figure:: images/flow_secure_10_create_app_policy_5_inbound_rule.png
 
 Add New Inbound Source for Calm
----------------------------
+-------------------------------
 Calm requires access to log into newly provisioned VMs. Add Prism Central's IP address to the security policy.
 
 - Select **+ Add Source**.
