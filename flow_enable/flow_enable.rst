@@ -127,9 +127,9 @@ Update the application profile variables:
 
   Click **Save** from the top right menu.
 
-Set the Primary NIC network in each of the VMs.
+Set the NIC network in each of the VMs to the **Primary** network.
   Select each of the Services in the blueprint pane.
-  Select VM in the right hand pane and scroll down to NETWORK ADAPTERS (NICS) (1).
+  Select **VM** in the right hand pane and scroll down to **NETWORK ADAPTERS (NICS) (1)**.
   Select the **Primary** network.
   Repeat for each service.
 
