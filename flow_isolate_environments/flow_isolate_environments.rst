@@ -23,7 +23,7 @@ Create and Assign Categories
 Update **Environment** with a new category value **Prod-abc**
 -------------------------------------------------------------
 
-Log on to the Prism Central environment and navigate to the <icon>hamburger menu **Virtual Infrastructure > Categories**.
+Log on to the Prism Central environment and go to the navigation menu > **Virtual Infrastructure > Categories**.
 
 Click the check box beside **Environment**. Click **Actions > Update**.
 

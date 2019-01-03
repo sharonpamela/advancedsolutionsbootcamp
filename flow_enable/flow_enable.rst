@@ -62,7 +62,7 @@ Click **Upload Blueprint** and navigate to the blueprint provided for this cours
 
 .. figure:: images/blueprint.png
 
-Name the blueprint with your initials, **abc_TaskManager** and choose the **Default** project.
+Name the blueprint with your initials, **abc_TaskManager** and choose the **Calm** project. If the Calm project does not exist or is not set up, see the **Calm:Projects** section to set it up first.
 
 Once the blueprint finishes uploading, it will automatically open.
 
@@ -115,7 +115,7 @@ Click **Save** from the top right menu, then click the **Back** green button.
 
 Update the application profile variables:
   1. Edit the Mysql_password variable:
-  On the left hand side menu, click on the application overview box and select the Nutanix Profile.
+  On the left hand side menu, click on the application overview box and select the Nutanix Application Profile.
   Locate the Mysql_password from the right hand side menu and type **nutanix/4u** in the **Password** field.
   .. figure:: images/Mysql_password.png
 
@@ -131,7 +131,13 @@ Set the NIC network in each of the VMs to the **Primary** network.
   Select the **Primary** network.
   Repeat for each service.
 
-Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown belowm replacing abc with your initials:
+Set the disk image in each of the VMs to be the CentOS_7_Cloud
+  Select each of the Services in the blueprint pane.
+  Select **VM** in the right hand pane and scroll down to **IMAGES(1)**.
+  Select the **CentOS_7_Cloud**.
+  Repeat for each service.
+
+Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown below replacing abc with your initials:
 abc-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
 
 .. figure:: images/calm_prefix_vm_name.png

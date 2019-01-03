@@ -22,7 +22,7 @@ Create and Assign Categories
 Update **AppType** with a new category value **TaskMan-abc**.
 -------------------------------------------------------------
 
-Log on to the Prism Central environment and navigate to the <icon>hamburger menu. Click on **Virtual Infrastructure > Categories**.
+Log on to the Prism Central environment and go to the navigation menu > **Virtual Infrastructure > Categories**.
 
 Click the check box beside **AppType**. Click **Actions > Update**.
 
@@ -51,7 +51,7 @@ Click **Save**.
 Assign Categories to the Calm Blueprint.
 ----------------------------------------
 
-Within the <icon>hamburger menu in Prism Central, navigate to **Services > Calm**.
+Within the navigation menu in Prism Central, navigate to **Services > Calm**.
 
 Click on Blueprints and select the **abc_TaskManager** blueprint you imported and edited earlier.
 
@@ -73,7 +73,7 @@ Launch a Service from the Calm Blueprint.
 
 Launch the application blueprint to initiate the creation of the VMs associated with the application. These VMs will be created with the appropriate network and category settings from the blueprint.
 
-Select Save to commit any changes.
+Select **Save** to commit any changes.
 
 Click Launch and name the application **abc_TaskManager**, replacing abc with your initials.
 
@@ -90,7 +90,7 @@ Secure the Task Manager Application
 Create a security policy to protect the Task Manager application.
 -----------------------------------------------------------------
 
-Navigate to the <icon>hamburger menu **Virtual Infrastructure > Policies > Security Policies**.
+From the navigation menu Select **Virtual Infrastructure > Policies > Security Policies**.
 
 Click **Create Security Policy > Secure an Application**.
 
@@ -156,7 +156,7 @@ Click + which appears on the left side of **AppTier: TMLB-abc** after completing
 
 This opens the Create Inbound Rule window.
 
-In the Protocol column, select **TCP** and type port 22 to allow Calm to access Linux VMs. 
+In the Protocol column, select **TCP** and type port 22 to allow Calm to access Linux VMs.
 
 Click **+ Add Port/Protocol**. Select **TCP** and type port 5985 to allow Calm to access Windows VMs.
 
@@ -223,6 +223,6 @@ Takeaways
 
 - Categories created in Prism Central are available inside Calm blueprints.
 - Security policies leverage the text based categories in Prism Central.
-- Calm Blueprints can deploy applications that are automatically secured with Flow. 
+- Calm Blueprints can deploy applications that are automatically secured with Flow.
 - Flow can restrict traffic on certain ports and protocols for VMs running on AHV.
 - The policy is created in **Save and Monitor** mode, meaning traffic is not actually blocked until the policy is applied. This is helpful to learn the connections and ensure no traffic is blocked unintentionally.

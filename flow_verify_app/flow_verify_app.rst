@@ -23,7 +23,7 @@ Before evaluating the Flow security policy, verify that the Task Manager applica
 
 Open the Console of the Windows client VM using Prism Central.
 
-Navigate to <icon>hamburger menu **Virtual Infrastructure > VMs** and type your initials into the search bar. 
+From the navigation menu, select **Virtual Infrastructure > VMs** and type your initials into the search bar.
 
 .. figure:: images/flow_verify_1_vm_search.png
 
@@ -42,13 +42,13 @@ Verify Application Categories
 ---------------------------------
 Calm provisions the VMs for the applications with the correct categories during VM creation. These categories should place the VMs into the Application Security Policy created in previous steps. Verify that the VMs are properly categorized.
 
-Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc**.
+From the navigation menu, select **Policies > Security Policies > AppTaskMan-abc**.
 
 Verify the number of VMs in the three application tiers. The load balancer and database tier should have one VM. The web tier should have two VMs.
 
 .. figure:: images/flow_verify_4_vm_count.png
 
-Click on the VM count to see a list of the VMs inside the tier. 
+Click on the VM count to see a list of the VMs inside the tier.
 
 Select the checkbox next to any VM in the application and navigate to **Actions > Manage Categories**.
 
@@ -74,7 +74,7 @@ Add Flows to a Policy Using Flow Visualization
 View Detected Traffic Flows
 ---------------------------
 
-Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc** to view the detected traffic flows to and from the Task Manager application.
+From the navigation menu , select *Policies > Security Policies > AppTaskMan-abc** to view the detected traffic flows to and from the Task Manager application.
 
 Confirm that **Environment: Dev** is listed as a source. The source box and line should appear in yellow to indicate the detected ping and web traffic from our Windows client VM in the dev environment. This can take a few minutes to appear.
 
