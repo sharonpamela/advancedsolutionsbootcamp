@@ -12,19 +12,14 @@ Calm Blueprint (3TWA)
 
 In this exercise you will extend the MySQL Blueprint created previously into a basic 3 Tier Web Application (a Task Manager), as shown below.  You'll also add the ability to perform Day 2 operations (scaling) to the blueprint.
 
-As with the previous MySQL Lab, this lab has two tracks:
+We'll use a Cloud based CentOS image which does not allow password based authentication, instead it relies on *SSH keys*.  Most Public Clouds authenticate in this manner.
 
- - **Cloud Track** - We'll use a Cloud based CentOS image which does not allow password based authentication, instead it relies on *SSH keys*.  Most Public Clouds authenticate in this manner.  If you're comfortable with SSH keys, we recommend you follow this track.
- - **Local Track** - We'll use a local CentOS image which allows password based authentication.  If you've never used SSH keys before, we recommend you follow this track.
-
-You **must** follow the same track as you did for the MySQL lab.
-
-.. figure:: images/3twa1.png
+.. figure:: images/5103twa1.png
 
 Creating the Web Server
 .......................
 
-From **Prism Central > Apps**, select **Blueprints** from the sidebar and select your Blueprint from the previous exercise.
+From **Prism Central > Calm** (if you're running 5.8.1 or later), select **Blueprints** from the sidebar.
 
 In **Application Overview > Services**, click :fa:`plus-circle`.
 
@@ -44,9 +39,7 @@ With the WebServer service icon selected in the workspace window, scroll to the 
 - **vCPUs** - 2
 - **Cores per vCPU** - 1
 - **Memory (GiB)** - 4
-- **Guest Customization** - Depending on your track:
-
-  - **Cloud Track** - Select Guest Customization
+- **Guest Customization** - Select Guest Customization
 
     - Leave **Cloud-init** selected and paste in the following script
 
@@ -58,10 +51,6 @@ With the WebServer service icon selected in the workspace window, scroll to the 
             ssh-authorized-keys:
               - @@{INSTANCE_PUBLIC_KEY}@@
             sudo: ['ALL=(ALL) NOPASSWD:ALL']
-
-      .. code-block:: bash
-
-  - **Local Track** - Leave Guest Customization Unselected
 
 - Select :fa:`plus-circle` under **Network Adapters (NICs)**
 - **NIC** - Primary
@@ -145,8 +134,6 @@ Copy and paste the following script into the **Script** field:
   sudo chmod -R 777 /var/www/laravel/
   sudo systemctl restart nginx
 
-.. code-block:: bash
-
 Select the WebServer service icon in the workspace window again and scroll to the top of the **Configuration Panel**, click **Package**.
 
 Fill out the following fields:
@@ -168,8 +155,6 @@ Copy and paste the following script into the **Script** field:
   sudo rm -rf /var/www/laravel
   sudo yum erase -y nginx
 
-.. code-block:: bash
-
 Click **Save** and ensure no errors or warnings pop-up.  If they do, resolve the issue, and **Save** again.
 
 Adding Dependencies
@@ -179,19 +164,19 @@ As our application will require the database to be running before the web server
 
 In the **Application Overview > Application Profile** section, expand the **Default** Application Profile (if you renamed the Application Profile at a previous step, then just select that re-named application profile).  Next, click on the **Create** Profile Action and view the **Workspace**:
 
-.. figure:: images/dependency1.png
+.. figure:: images/510dependency1.png
 
 Take note of the **Orange Orchestration Edge** going from the **MySQL Start** task to the **WebServer Package Install** task.  This edge was automatically created by Calm due to the **@@{MySQL.address}@@** macro reference in the **WebServer Package Install** task.  Since the system needs to know the IP Address of the MySQL service prior to being able to proceed with the WebServer Install task, it automatically creates the orchestration edge.  This requires the MySQL service to be started prior to moving on to the WebServer Install task.
 
 Next, back in the **Application Overview > Application Profile** section, select the **Stop** Profile Action.  View the **Workplace** section: notice how there are no orange orchestration edges?  This could cause issues if the MySQL service shutdown slightly before the WebServer accepted a request.  Click on each Profile Action to take note of the current presence (or lack thereof) of the orange orchestration edges.
 
-.. figure:: images/dependency2.png
+.. figure:: images/510dependency2.png
 
 To resolve this, we'll manually create a dependency.  In the **Workspace**, select the **WebServer** Service and click the **Create Dependency** icon that appears above the Service icon, and then click on the **MySQL** service.  This represents that the **WebServer** service "depends" upon the **MySQL** service, meaning the **MySQL** service will start before, and stop after, the **WebServer** service.
 
 Click **Save**.  You should see the system draw an **Orange Orchestration Edge** like so:
 
-.. figure:: images/dependency3.png
+.. figure:: images/510dependency3.png
 
 Drawing the white dependency arrows will cause Calm to create orange orchestration edges for all **System Defined Profile Actions** (Create, Start, Restart, Stop, Delete, and Soft Delete).  Click on each Profile Action to see the difference compared to before the white dependency arrow was drawn.
 
@@ -206,7 +191,7 @@ In the **Configuration Pane**, select the **Service** tab.
 
 Under **Deployment Config**, change the **Min** number of replicas from 1 to 2, and the **Max** Number of replicas from 1 to 4.
 
-.. figure:: images/replicas.png
+.. figure:: images/510replicas.png
 
 Creating the Load Balancer
 ..........................
@@ -229,9 +214,7 @@ Select **Service3** and fill out the following fields in the **Configuration Pan
 - **vCPUs** - 2
 - **Cores per vCPU** - 1
 - **Memory (GiB)** - 4
-- **Guest Customization** - Depending on your track:
-
-  - **Cloud Track** - Select Guest Customization
+- **Guest Customization** - Select Guest Customization
 
     - Leave **Cloud-init** selected and paste in the following script
 
@@ -243,10 +226,6 @@ Select **Service3** and fill out the following fields in the **Configuration Pan
             ssh-authorized-keys:
               - @@{INSTANCE_PUBLIC_KEY}@@
             sudo: ['ALL=(ALL) NOPASSWD:ALL']
-
-      .. code-block:: bash
-
-  - **Local Track** - Leave Guest Customization Unselected
 
 - Select :fa:`plus-circle` under **Network Adapters (NICs)**
 - **NIC** - Primary
@@ -318,8 +297,6 @@ Copy and paste the following script into the **Script** field:
   sudo systemctl enable haproxy
   sudo systemctl restart haproxy
 
-.. code-block:: bash
-
 Select the HAProxy service icon in the workspace window again and scroll to the top of the **Configuration Panel**, click **Package**.
 
 Fill out the following fields:
@@ -341,8 +318,6 @@ Copy and paste the following script into the **Script** field:
   sudo
   yum -y erase haproxy
 
-.. code-block:: bash
-
 Click **Save**.
 
 In the **Workspace**, select the **HAProxy** Service and click the **Create Dependency** icon that appears above the Service icon.  Select the **WebServer** Service.
@@ -358,7 +333,7 @@ If you recall in a previous step, we set the minimum number of **WebServer** rep
 
 In the **Application Overview > Application Profile** section, expand the **Default** Application Profile.  Then, select :fa:`plus-circle` next to the **Actions** section.  On the **Configuration Panel** to the right, rename the new Action to be **Scale Out**.
 
-.. figure:: images/scaleout1.png
+.. figure:: images/510scaleout1.png
 
 Next to the **WebServer** service tile, click the **+ Task** button, then fill out the following fields:
 
@@ -367,11 +342,11 @@ Next to the **WebServer** service tile, click the **+ Task** button, then fill o
 - **Scaling Type** - Scale Out
 - **Scaling Count** - 1
 
-.. figure:: images/scaleout2.png
+.. figure:: images/510scaleout2.png
 
 Click **Save** and ensure no errors or warnings pop-up.  If they do, resolve the issue, and **Save** again.
 
-When a user later runs the **Scale Out** task, a new **WebServer** VM will get created, and the **Package Install** tasks for that service will be exectured.  However, we do need to modify the **HAProxy** configuration in order to start taking advantage of this new web server.
+When a user later runs the **Scale Out** task, a new **WebServer** VM will get created, and the **Package Install** tasks for that service will be executed.  However, we do need to modify the **HAProxy** configuration in order to start taking advantage of this new web server.
 
 Next to the **HAProxy** service tile, click the **+ Task** button, then fill out the following fields:
 
@@ -394,20 +369,18 @@ Copy and paste the following script into the **Script** field:
   sudo systemctl daemon-reload
   sudo systemctl restart haproxy
 
-.. code-block:: bash
-
 That script will grab the last address in the WebServer address array, and add it to the haproxy.cfg file.  However, we want to be sure that this doesn't happen until **after** the new WebServer is fully up, otherwise the HAProxy server may send requests to a non-functioning WebServer.
 
 To solve this issue, on the **Workspace**, click on the **web_scale_out** task, then the **Create Edge** arrow icon, and finally click on the **add_webserver** task to draw the edge.  Afterwards your **Workspace** should look like this:
 
-.. figure:: images/scaleout3.png
+.. figure:: images/510scaleout3.png
 
 Scale In
 ........
 
 Again imagine you're the administrator of this Task Manager Application we're building.  It's the end of your busy season, and you'd like to scale the Web Server back in to save on resource utilization.  To accomplish this, navigate to the **Application Overview > Application Profile** section, expand the **Default** Application Profile.  Then, select :fa:`plus-circle` next to the **Actions** section.  On the **Configuration Panel** to the right, rename the new Action to be **Scale In**.
 
-.. figure:: images/scalein1.png
+.. figure:: images/510scalein1.png
 
 Next to the **WebServer** service tile, click the **+ Task** button, then fill out the following fields:
 
@@ -416,7 +389,7 @@ Next to the **WebServer** service tile, click the **+ Task** button, then fill o
 - **Scaling Type** - Scale In
 - **Scaling Count** - 1
 
-.. figure:: images/scalein2.png
+.. figure:: images/510scalein2.png
 
 Click **Save** and ensure no errors or warnings pop-up.  If they do, resolve the issue, and **Save** again.
 
@@ -442,13 +415,11 @@ Copy and paste the following script into the **Script** field:
   sudo systemctl daemon-reload
   sudo systemctl restart haproxy
 
-.. code-block:: bash
-
 That script will grab the last address in the WebServer address array, and remove it from the haproxy.cfg file.  Similar to the last step, we want to be sure that this happens **before** the new WebServer is destroyed, otherwise the HAProxy server may send requests to a non-functioning WebServer.
 
 To solve this issue, on the **Workspace**, click on the **del_webserver** task, then the **Create Edge** arrow icon, and finally click on the **web_scale_in** task to draw the edge.  Afterwards your **Workspace** should look like this:
 
-.. figure:: images/scalein3.png
+.. figure:: images/510scalein3.png
 
 Click **Save** and ensure no errors or warnings pop-up.  If they do, resolve the issue, and **Save** again.
 
@@ -459,7 +430,7 @@ Within the blueprint editor, click **Launch**. Specify a unique **Application Na
 
 Once the application changes into a **RUNNING** state, navigate to the **Services** tab and select the **HAProxy** service.  On the panel that pops open on the right, highlight and copy the **IP Address** field.  In a new browser tab or window, navigate to http://<HAProxy-IP>, and test out your Task Manager Web Application.
 
-.. figure:: images/3twa2.png
+.. figure:: images/5103twa2.png
 
 Now, back within Calm, navigate to the **Manage** tab, and click the play button next to the **Scale Out** task, and click **Run** to Scale out the Web Server.  Monitor the Scale Out action on the **Audit** tab.
 

@@ -12,19 +12,17 @@ Creating Blueprint (MySQL)
 
 In this exercise you will explore the basics of Nutanix Calm by building and deploying a Blueprint that installs and configures a single service, MySQL, on a CentOS image.
 
-Depending on how comfortable you are with SSH Keys, in this lab you'll have two options:
-
- - **Cloud Track** - We'll use a Cloud based CentOS image which does not allow password based authentication, instead it relies on *SSH keys*.  Most Public Clouds authenticate in this manner.  If you're comfortable with SSH keys, we recommend you follow this track.
- - **Local Track** - We'll use a local CentOS image which allows password based authentication.  If you've never used SSH keys before, we recommend you follow this track.
+We'll use a Cloud based CentOS image which does not allow password based authentication, instead it relies on *SSH keys*.  Most Public Clouds authenticate in this manner.
 
 Creating Blueprint
 ..................
 
-From **Prism Central > Apps** (**Prism Central > Calm** if you're running 5.8.1 or later), select **Blueprints** from the sidebar and click **+ Create Application Blueprint**.
+From **Prism Central > Calm** (if you're running 5.8.1 or later), select **Blueprints** from the sidebar and click **+ Create Blueprint > Multi VM/Pod Blueprint**.
 
-Specify **CalmIntro<INITIALS>** in the **Blueprint Name** field.
+Inside the Blueprint Setup window:
+Specify **CalmIntro<INITIALS>** in the **Name** field.
 Enter a **Description** in the Description field.
-Select **Calm** from the **Project** drop down menu and click **Proceed**.
+Select **Calm** from the **Project** drop down menu.
 
 Click **Proceed** to continue.
 
@@ -37,16 +35,7 @@ Click **Credentials >** :fa:`plus-circle` and depending on which track you're on
 - **Secret** - Key
 - **Key** - Paste in your private key from the previous lesson
 
-.. figure:: images/keycredential.png
-
-**Local Track**:
-
-- **Credential Name** - CENTOS
-- **Username** - root
-- **Secret** - Password
-- **Password** - nutanix/4u
-
-.. figure:: images/passcredential.png
+.. figure:: images/510keycredential.png
 
 Click **Save**, and then **Back**.
 
@@ -75,20 +64,19 @@ In the **Configuration Pane** under **Variable List**, fill out the following fi
 +------------------------+------------------------------------------------------+------------+
 | Database\_name         | homestead                                            |            |
 +------------------------+------------------------------------------------------+------------+
-| INSTANCE\_PUBLIC\_KEY  | Only required for the **Cloud Track**.               |            |
-|                        | Paste in your public key from the previous lesson.   |            |
+| INSTANCE\_PUBLIC\_KEY  | Paste in your public key from the previous lesson.   |            |
 +------------------------+------------------------------------------------------+------------+
 
-.. figure:: images/variables.png
+.. figure:: images/510variables.png
 
 Click **Save**.
 
 Adding a Downloadable Image
 ...........................
 
-All VMs in AHV are based off of a disk image.  You have the option of selecting an image that's already managed by Prism Central (**Local Track**), or specifying a Downloadable Image via a URI (**Cloud Track**).  If the latter is chosen, during the application deployment Prism Central will automatically download and create the image specified.  If an image with the same URI already exists on the cluster, it will skip the download and use that instead.
+All VMs in AHV are based off of a disk image.  You can select a Downloadable Image via a URI.  During the application deployment, Prism Central will automatically download and create the image specified.  If an image with the same URI already exists on the cluster, it will skip the download and use that instead.
 
-If you're on the **Cloud Track**, then follow these steps.  If you're on the **Local Track**, skip to the next section (**Adding DB Service**).  Near the top, click **Configuration > Downloadable Image Configuration** :fa:`plus-circle` and fill out the following fields:
+Near the top, click **Configuration > Downloadable Image Configuration** :fa:`plus-circle` and fill out the following fields:
 
 - **Package Name** - CentOS\_7\_Cloud
 - **Description** - CentOS 7 Cloud Image
@@ -102,7 +90,7 @@ If you're on the **Cloud Track**, then follow these steps.  If you're on the **L
 .. note::
    This Cloud based image is the same that's used for the majority of the Nutanix Pre-Seeded Application Blueprints.
 
-.. figure:: images/image_config.png
+.. figure:: images/510image_config.png
 
 Click **Back** and then **Save**.
 
@@ -125,21 +113,15 @@ Fill out the following fields:
    This defines the name of the substrate within Calm. Names can only contain alphanumeric characters, spaces, and underscores.
 - **Cloud** - Nutanix
 - **OS** - Linux
-- **VM Name** - MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
-- **Image**
-
-  - **Cloud Track** - CentOS\_7\_Cloud
-  - **Local Track** - CentOS
-
+- **VM Name** - <initials>-MYSQL-@@{calm_array_index}@@-@@{calm_time}@@
+- **Image** - CentOS\_7\_Cloud
 - **Device Type** - Disk
 - **Device Bus** - SCSI
 - Select **Bootable**
 - **vCPUs** - 2
 - **Cores per vCPU** - 1
 - **Memory (GiB)** - 4
-- **Guest Customization** - Depending on your track:
-
-  - **Cloud Track** - Select Guest Customization
+- **Guest Customization** - Select Guest Customization
 
     - Leave **Cloud-init** selected and paste in the following script
 
@@ -152,8 +134,6 @@ Fill out the following fields:
               - @@{INSTANCE_PUBLIC_KEY}@@
             sudo: ['ALL=(ALL) NOPASSWD:ALL']
 
-  - **Local Track** - Leave Guest Customization Unselected
-
 - Select :fa:`plus-circle` under **Network Adapters (NICs)**
 - **NIC** - Primary
 - **Credential** - CENTOS
@@ -164,14 +144,14 @@ With the MySQL service icon selected in the workspace window, scroll to the top 
 
 On the Blueprint Canvas section, a **Package Install** field will pop up next to the MySQL Service tile:
 
-.. figure:: images/package_install.png
-
 Click on the **+ Task** button, and fill out the following fields on the **Configuration Panel** on the right:
 
 - **Name Task** - Install_sql
 - **Type** - Execute
 - **Script Type** - Shell
 - **Credential** - CENTOS
+
+.. figure:: images/510installpkg.png
 
 Copy and paste the following script into the **Script** field:
 
@@ -209,6 +189,8 @@ Copy and paste the following script into the **Script** field:
   FLUSH PRIVILEGES;
   EOF
 
+.. figure:: images/510package_install.png
+
 .. note::
    You can click the **Pop Out** icon on the script field for a larger window to view/edit scripts.
    Looking at the script you can see the package will install MySQL, configure the credentials and create a database based on the variables specified earlier in the exercise.
@@ -228,6 +210,8 @@ Copy and paste the following script into the **Script** field:
 
   #!/bin/bash
   echo "Goodbye!"
+
+.. figure:: images/510uninstallpkg.png
 
 .. note::
    The uninstall script can be used for removing packages, updating network services like DHCP and DNS, removing entries from Active Directory, etc. It is not being used for this simple example.
@@ -252,7 +236,7 @@ Select **Audit > Create** to view the progress of your application. After **MySQ
 
 Note the status changes to **Running** after the Blueprint has been successfully provisioned.
 
-.. figure:: https://s3.amazonaws.com/s3.nutanixworkshops.com/calm/lab1/image25.png
+.. figure:: images/provisioned.png
 
 Takeaways
 +++++++++
