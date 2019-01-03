@@ -57,9 +57,10 @@ Fill out the following fields:
 - **Purpose** - Isolate dev from prod-abc.
 - **Isolate This Category** - Environment: Development.
 - **From This Category** - Environment: Prod-abc.
+
 Do NOT select the check box for **Apply the isolation only within a subset of the data center**.
 
-• Click **Apply Now** to save the policy in Apply mode.
+Click **Apply Now** to save the policy in Apply mode.
 
 .. figure:: images/flow_iso_3_create_iso_policy.png
 

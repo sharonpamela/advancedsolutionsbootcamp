@@ -1,8 +1,8 @@
 .. _flow_verify_app:
 
-----------------
+------------------------
 Flow: Verify Application
-----------------
+------------------------
 
 Overview
 ++++++++
@@ -15,7 +15,7 @@ In this exercise you will verify that the Flow security policy is monitoring the
 
 
 Verify The Flow Application Security Policy
-++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++
 
 Access Task Manager Application
 -----------------------------------------
@@ -56,7 +56,7 @@ Note the categories applied to the VM as well as the associated security policy.
 
 
 Access the Application Tiers
------------------------------------------
+----------------------------
 The application security policy **AppTaskMan-abc** does not allow any outside access to the database tier, but this policy is currently in monitor mode. Confirm that the Windows client VM can ping the database VM.
 
 Open the console of the Windows Client VM.
@@ -72,7 +72,7 @@ Add Flows to a Policy Using Flow Visualization
 ..............................................
 
 View Detected Traffic Flows
------------------------------------------------------
+---------------------------
 
 Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc** to view the detected traffic flows to and from the Task Manager application.
 
