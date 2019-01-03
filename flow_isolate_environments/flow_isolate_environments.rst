@@ -36,7 +36,7 @@ Enter **Prod-abc**, replacing abc with your initials and click **Save**.
 
 Add Category to Task Manager VMs
 --------------------------------
-Navigate to the <icon>hamburger menu **Virtual Infrastructure > VMs** and search for your initials. Click **View All X VMs**
+Select **Virtual Infrastructure > VMs** from the navigation Menu and search for your initials. Click **View All X VMs**
 
 Select the load balancer, web, and database VMs that are part of the Task Manager application and click **Actions > Manage Categories**.
 
