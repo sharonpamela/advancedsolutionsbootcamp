@@ -50,7 +50,7 @@ In this section we will import a Calm Blueprint into Prism Central that will cre
 To import a Calm Blueprint, ensure Calm is enabled (Please see the Enable Calm optional lab if this isn't the case).
 
 Download the blueprint for this lab at the following link:
-<TODO BP link>
+https://s3.amazonaws.com/technology-boot-camp/abc_TaskManager.json
 
 From the Dashboard in Prism, Click the <icon here> Navigation menu on the top left then select **Services** > **Calm**.
 
@@ -131,10 +131,12 @@ Set the NIC network in each of the VMs to the **Primary** network.
   Select the **Primary** network.
   Repeat for each service.
 
-Set the disk image in each of the VMs to be the CentOS_7_Cloud
+Set the disk image in each of the VMs to be the CentOS_7_Cloud (except the Windows VM)
   Select each of the Services in the blueprint pane.
   Select **VM** in the right hand pane and scroll down to **IMAGES(1)**.
-  Select the **CentOS_7_Cloud**.
+  Select the image:
+    Choose the **CentOS_7_Cloud** image for the Linux vms.
+    Choose the **Windows** image for the one windows client vm.
   Repeat for each service.
 
 Edit the VM Name field in each of the VMs to add your initials. Select VM Configuration in the right pane and place your initials in front of the name field similar to the example shown below replacing abc with your initials:

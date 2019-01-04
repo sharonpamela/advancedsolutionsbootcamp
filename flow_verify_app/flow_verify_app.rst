@@ -120,7 +120,7 @@ Now that the policy is complete, move it from monitor mode to apply mode. to sta
 
 Select **Apply Now** to save the policy and move it into apply mode.
 
-Navigate to <icon>hamburger menu **Policies > Security Policies > AppTaskMan-abc**.
+From the Navigation menu, **Policies > Security Policies > AppTaskMan-abc**.
 
 Confirm that **Environment: Dev** shows in blue as an allowed source.
 

@@ -47,7 +47,7 @@ Search for and select the newly created **Prod-abc** category. Click **Save** to
 Create a New Security Policy
 ............................
 
-Navigate to <icon>hamburger menu **Policies > Security Policies** within Prism Central.
+From the navigation menu, select **Policies > Security Policies** within Prism Central.
 
 Click **Create Security Policy** > Select **Isolate Environments**.
 
@@ -78,7 +78,7 @@ Is the Task Manager Application accessible?
 
 Delete the Isolation Policy
 ---------------------------
-Navigate to <icon>hamburger menu **Policies > Security Policies** and select **isolate-dev-prod-abc**.
+From the navigation menu, select **Policies > Security Policies** and select **isolate-dev-prod-abc**.
 
 Select **Actions > Delete** and type **DELETE** to confirm. Click **OK** to delete the policy.
 

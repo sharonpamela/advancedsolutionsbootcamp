@@ -19,9 +19,9 @@ Quarantine a VM and Explore the Quarantine Policy
 Confirm Task Manager App Availability
 .......................................................
 
-Log on to the Prism Central environment and navigate to <icon>hamburger menu **Services > Calm**.
+Log on to the Prism Central environment and from the navigation menu select **Services > Calm**.
 
-Navigate to <icon>hamburger menu **Virtual Infrastructure > VMs** and type your initials into the search bar. Click **View all X VMs**, select your Windows client VM, and click **Actions > Launch Console**.
+Navigate to **Virtual Infrastructure > VMs** and type your initials into the search bar. Click **View all X VMs**, select your Windows client VM, and click **Actions > Launch Console**.
 
 .. figure:: images/flow_q_1_console.png
 
@@ -36,9 +36,9 @@ Once connectivity is confirmed, enter **ping -t <load balancer IP>** as an ongoi
 Quarantine a VM and Edit The Quarantine Policy
 ..............................................
 
-Quarantine the load balancer HAProxy VM in your Task Manager application by navigating to <icon>hamburger menu **Virtual Infrastructure > VMs**.
+Quarantine the load balancer HAProxy VM in your Task Manager application by navigating **Virtual Infrastructure > VMs**.
 
-Select **abc-HAProxy-X-XXXX-XXXX > Actions > Quarantine VMs**. 
+Select **abc-HAProxy-X-XXXX-XXXX > Actions > Quarantine VMs**.
 
 .. figure:: images/flow_q_2_action_menu.png
 
@@ -52,7 +52,7 @@ Navigate to <icon>hamburger menu **Policies > Security Policies > Quarantine**.
 
 Select **Update** in the top right corner then select **+ Add Source** to the Quarantine policy.
 
-Add a source by **Subnet/IP** with the IP address of the Windows client VM, and a netmask of **/32**. 
+Add a source by **Subnet/IP** with the IP address of the Windows client VM, and a netmask of **/32**.
 
 .. figure:: images/flow_q_4_add_forensic_src.png
 
