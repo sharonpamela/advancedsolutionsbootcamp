@@ -75,7 +75,9 @@ Update the credentials:
   - Ensure the **Username** is **centos**
   - Ensure the **Secret Type** is set to **SSH Private Key**.
   - Paste the private key below into the field provided (include the begin and end tags with all dashes):
+ 
   .. code-block:: bash
+
      -----BEGIN RSA PRIVATE KEY-----
      MIIEowIBAAKCAQEAw6CZT4/gAj8hxptH/hck0D0bfptR+ibLci7bxSVJ7Q8hdv3a
      qXEPUHyisNUHI8xnUkvAeh63Tjoymc+No9Nf2C1hctmKwy0Dh3DSYul6MAkNOfQu
@@ -120,7 +122,9 @@ Update the application profile variables:
   .. figure:: images/Mysql_password.png
 
   2. Edit the INSTANCE_PUBLIC_KEY variable by pasting the public key below beginning with ssh-rsa and ending with .com:
+
   .. code-block:: bash
+
      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDoJlPj+ACPyHGm0f+FyTQPRt+m1H6JstyLtvFJUntDyF2/dqpcQ9QfKKw1QcjzGdSS8B6HrdOOjKZz42j01/YLWFy2YrDLQOHcNJi6XowCQ059C7bHehP5lqNN6bRIzdQnqGZGYi8iKYzUChMVusfsPd5ZZo0rHCAiCAP1yFqrcSmq83QNN1X8FZ1COoMB66vKyD2rEoeKz4lilEeWKyP4RLmkOc1eMYQNdyMOCNFFbKmC1nPJ+Mpxo1HfNR84R7WNl5oEaNQOORN+NaOzu5Bxim2hhJvU37J+504azZ1PCUiHiC0+zBw4JfeOKMvtInmkEZQEd3y4RrIHLXKB4Yb centos@nutanix.com
 
   Click **Save** from the top right menu.
