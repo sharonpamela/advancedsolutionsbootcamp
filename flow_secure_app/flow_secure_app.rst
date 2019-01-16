@@ -156,9 +156,7 @@ Click + which appears on the left side of **AppTier: TMLB-abc** after completing
 
 This opens the Create Inbound Rule window.
 
-In the Protocol column, select **TCP** and type port 22 to allow Calm to access Linux VMs. 
-
-Click **+ Add Port/Protocol**. Select **TCP** and type port 5985 to allow Calm to access Windows VMs.
+In the Protocol column, select **TCP** and type port 22 to allow Calm to access Linux VMs. If this were a Windows VM, use port 5985.
 
 Click **Save**.
 
